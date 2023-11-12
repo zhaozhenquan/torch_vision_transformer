@@ -20,7 +20,7 @@ def main():
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # load image
-    image_path = "/home/rhdai/workspace/code/image_classification/dataset/daisy.jpg"
+    image_path = "./data_test/val/daisy/54377391_15648e8d18.jpg"
     assert os.path.exists(image_path), "file: '{}' dose not exist.".format(image_path)
 
     image = Image.open(image_path)
@@ -34,7 +34,7 @@ def main():
     model = create_model(args)
     model = model_parallel(args, model).to(device)
     # load model weights
-    model_weight_path = "{}/weights/epoch=20_val_acc=0.9643.pth".format(args.summary_dir)
+    model_weight_path = "./summary/vit_base_patch16_224/weights/epoch=22_val_acc=0.9619.pth"
     model.load_state_dict(torch.load(model_weight_path, map_location=device))
 
     model.eval()
